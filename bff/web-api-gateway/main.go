@@ -9,10 +9,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/TheMickeyMike/projekt-magisterski/service-http-template/fragrance"
-	fragranceV1 "github.com/TheMickeyMike/projekt-magisterski/service-http-template/fragrance/v1"
-	log "github.com/TheMickeyMike/projekt-magisterski/service-http-template/logging"
-
+	"github.com/TheMickeyMike/projekt-magisterski/bff/web-api-gateway/fragrance"
+	fragranceV1 "github.com/TheMickeyMike/projekt-magisterski/bff/web-api-gateway/fragrance/v1"
+	log "github.com/TheMickeyMike/projekt-magisterski/bff/web-api-gateway/logging"
 	"go.uber.org/zap"
 )
 
@@ -24,12 +23,12 @@ var (
 
 var shutdownSignals = []os.Signal{os.Interrupt, syscall.SIGTERM}
 
-// @title service-http-template
+// @title web-api-gateway
 // @version 1.0
 // @description An app template
-// @termsOfService https://github.com/TheMickeyMike/projekt-magisterski/service-http-template
+// @termsOfService https://github.com/TheMickeyMike/projekt-magisterski/bff/web-api-gateway
 // @license.name MIT
-// @license.url https://github.com/TheMickeyMike/projekt-magisterski/service-http-template/LICENSE
+// @license.url https://github.com/TheMickeyMike/projekt-magisterski/bff/web-api-gateway/LICENSE
 func main() {
 	// app main context
 	ctx := context.Background()
@@ -84,7 +83,7 @@ func run(ctx context.Context) error {
 	// Start API server
 	server.Start(serverErrorsCh)
 
-	// Blocking main and waiting for shutdown.
+	// Blocking main and waiting for shutdowlon.
 	select {
 	case err := <-serverErrorsCh:
 		return fmt.Errorf("server error: %w", err)

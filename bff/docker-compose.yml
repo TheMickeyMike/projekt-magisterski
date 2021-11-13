@@ -1,0 +1,22 @@
+version: "3.9" 
+services:
+  web-api-gateway:
+    build: /web-api-gateway
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+      - logvolume01:/var/log
+    links:
+      - redis
+  nginx:
+    image: nginx
+    volumes:
+    - ./build/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+    - "8080:80"
+    environment:
+    - NGINX_PORT=80
+
+volumes:
+  logvolume01: {}
